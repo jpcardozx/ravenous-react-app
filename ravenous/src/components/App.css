@@ -10,8 +10,8 @@
   --animation-speed: 0.4s; /* Aumentei a duração da animação para transições mais suaves */
   --hover-color: #1a365d;
   --overlay-color: rgba(0, 0, 0, 0.5);  /* Sobreposição para a imagem */
-  --gradient-start: #12253f;
-  --gradient-end: #0e3721;
+  --gradient-start: #0a2803;
+  --gradient-end: #051f11;
 }
 
 /* Reset básico */
