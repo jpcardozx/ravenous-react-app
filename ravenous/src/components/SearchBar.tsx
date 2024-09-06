@@ -1,26 +1,15 @@
+// src/components/SearchBar.tsx
+
 import React, { useState } from 'react';
+import './App.css';
 
-const sortOptions = {
-  'Best Match': 'best_match',
-  'Highest Rated': 'rating',
-  'Most Reviewed': 'review_count'
-};
+interface SearchBarProps {
+  onSearch: (term: string, location: string) => void;
+}
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [term, setTerm] = useState('');
   const [location, setLocation] = useState('');
-  const [sortBy, setSortBy] = useState('best_match');
-
-  const getSortByClass = (sortByOption: string) => {
-    if (sortBy === sortByOption) {
-      return 'active';
-    }
-    return '';
-  };
-
-  const handleSortByChange = (sortByOption: string) => {
-    setSortBy(sortByOption);
-  };
 
   const handleTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(event.target.value);
@@ -32,31 +21,15 @@ const SearchBar: React.FC = () => {
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(`Searching Yelp with ${term}, ${location}, ${sortBy}`);
-    // Here you would typically call a function to interact with the Yelp API
-  };
-
-  const renderSortByOptions = () => {
-    return Object.entries(sortOptions).map(([key, value]) => {
-      return (
-        <li
-          key={value}
-          className={getSortByClass(value)}
-          onClick={() => handleSortByChange(value)}
-        >
-          {key}
-        </li>
-      );
-    });
+    if (term.trim() === '' || location.trim() === '') {
+      alert('Please enter both search term and location.');
+      return;
+    }
+    onSearch(term, location);
   };
 
   return (
     <div className="SearchBar">
-      <div className="SearchBar-sort-options">
-        <ul>
-          {renderSortByOptions()}
-        </ul>
-      </div>
       <form onSubmit={handleSearch}>
         <div className="SearchBar-fields">
           <input

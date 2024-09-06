@@ -1,39 +1,36 @@
-import React from 'react';
+// src/components/Business.tsx
 
-interface BusinessType {
-  imageSrc: string;
-  name: string;
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  category: string;
-  rating: number;
-  reviewCount: number;
-}
+import React from 'react';
+import { BusinessType } from '../types';
+import './App.css';
 
 interface BusinessProps {
   business: BusinessType;
 }
 
 const Business: React.FC<BusinessProps> = ({ business }) => {
-  const { imageSrc, name, address, city, state, zipCode, category, rating, reviewCount } = business;
-
   return (
     <div className="business">
       <div className="image-container">
-        <img src={imageSrc} alt={name} />
+        {business.imageSrc ? (
+          <img src={business.imageSrc} alt={business.name} />
+        ) : (
+          <div className="no-image">No Image Available</div>
+        )}
       </div>
-      <h2>{name}</h2>
+      <h2>{business.name}</h2>
       <div className="business-information">
         <div className="business-address">
-          <p>{address}</p>
-          <p>{city}, {state} {zipCode}</p>
+          <p>{business.address}</p>
+          <p>
+            {business.city}, {business.state} {business.zipCode}
+          </p>
+          <p>{business.country}</p>
         </div>
         <div className="business-reviews">
-          <h3>{category}</h3>
-          <h3 className="rating">{rating} stars</h3>
-          <p>{reviewCount} reviews</p>
+          <h3>Category: {business.category}</h3>
+          <h3 className="rating">Rating: {business.rating} ⭐</h3>
+          <p>{business.reviewCount} reviews</p>
         </div>
       </div>
     </div>
